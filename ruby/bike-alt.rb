@@ -112,9 +112,51 @@ end
 Start = City::Rome
 End   = City::Berlin
 
+class PriorityQueue
+  attr_accessor :queue
+
+  def initialize
+    @queue = []
+  end
+
+  # path - an OpenStruct containing distance, name of city, and the path so far
+  def push(path)
+    # naively just push and sort
+    queue.append(path)
+    queue.sort_by &:distance
+  end
+
+  def pop
+    queue.shift
+  end
+
+  def empty?
+    queue.empty?
+  end
+end
+
+class Solution
+  attr_reader :start, :finish, :queue
+  def initialize(start:, finish:)
+    queue = PriorityQueue.new
+    start = start
+    queue.push(OpenStruct.new({
+      name: start.to_s,
+      path: [start.to_s],
+      distance: 0
+    }))
+    finish = finish
+  end
+
+  def run
+    while not queue.empty?
+
+    return []
+  end
+end
 
 # Make a list of cities from Rome to Berlin
-result = [] # <-- your code goes here!!!!
+result = Solution.new(start: Start, end: End).run # <-- your code goes here!!!!
 
 
 if result.first != Start || result.last != End
